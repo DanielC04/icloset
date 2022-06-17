@@ -1,0 +1,14 @@
+.mainpage{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	a{
+		padding: 100px;
+		border: 1px solid black;
+		margin: 20px 100px;
+		text-align: center;
+		font-size: larger;
+		text-decoration: none;
+		color: black;
+	}
+}
