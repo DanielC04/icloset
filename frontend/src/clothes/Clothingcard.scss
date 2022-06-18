@@ -7,9 +7,10 @@
 	position: relative;
 	.name-tag{
 		position: absolute;
-		right: 0;
-		bottom: 0;
-		background-color: grey;
+		left: 5px;
+		top: 2px;
+		background-color: white;
+
 	}
 	.rating{
 		position: absolute;
@@ -27,7 +28,7 @@
 		}
 		cursor: pointer;
 	}
-	background-image: url('../../public/tshirt.png');
+	// background-image: url('../../public/tshirt.png');
 	background-size: contain;;
 	background-repeat: no-repeat;
 	background-position: center;
