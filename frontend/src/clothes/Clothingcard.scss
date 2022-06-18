@@ -2,6 +2,43 @@
 	border: 2px solid black;
 	border-radius: 4px;
 	padding: .5rem;
-	// margin: 10px;
+	margin-bottom: 10px;
 	aspect-ratio: 1/1;
+	position: relative;
+	.name-tag{
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		background-color: grey;
+	}
+	.rating{
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		transform: translateY(80%);
+		background-color: white;
+		z-index: 2;
+		border: 2px solid black;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: row;
+		div{
+			padding: 0px 10px;
+		}
+		cursor: pointer;
+	}
+}
+.clothing-card.greyed-out{
+	filter: brightness(.6);
+	background-color: grey;
+}
+
+.clothing-card.create-clothing{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	svg{
+		cursor: pointer;
+	}
 }

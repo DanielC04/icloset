@@ -7,20 +7,19 @@ export default function Clothingcollection(props) {
 	const [isExpanded, setIsExpanded] = useState(true)
 
 	let containerStyle = {
-		height: 'auto',
+		maxHeight: '100vh',
 		opacity: 1
 	}
 	let headStyle = {}
 	if (!isExpanded) {
 		containerStyle = {
-			height: 0,
+			maxHeight: 0,
 			opacity: 0
 		}
 		headStyle = {
 			borderRadius: '10px'
 		}
 	}
-
 
 	return (
 		<div className='clothing-collection' >
