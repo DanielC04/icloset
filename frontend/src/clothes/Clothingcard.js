@@ -9,11 +9,8 @@ export default function Clothingcard(props) {
 
 	const [score, setScore] = useState((minScore + maxScore) / 2);
 
-
-
 	return (
 		<div className={`clothing-card ${props.className}`}>
-			Clothingcard
 			<span className='name-tag'>{props.name}</span>
 			<div className='rating'>
 				<div onClick={() => setScore(Math.min(maxScore, score + 1))}>+</div>

@@ -7,7 +7,7 @@ export default function Clothingcollection(props) {
 	const [isExpanded, setIsExpanded] = useState(true)
 
 	let containerStyle = {
-		maxHeight: '100vh',
+		maxHeight: '1000vh',
 		opacity: 1
 	}
 	let headStyle = {}
