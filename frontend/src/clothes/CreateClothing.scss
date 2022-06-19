@@ -1,0 +1,30 @@
+.clothing-card.create-clothing{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	svg{
+		cursor: pointer;
+		margin-bottom: 15px;
+	}
+	background-image: none;
+	h3{
+		font-size: 1.5em;
+		justify-self: baseline;
+		margin: 0;
+		text-align: center;
+	}
+	.color-input, .length-input{
+		label{
+			color: #737272;
+			font-size: 100%;
+			margin-right: 10px;
+		}
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+	}
+}

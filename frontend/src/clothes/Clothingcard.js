@@ -11,7 +11,6 @@ export default function Clothingcard(props) {
 		rating: (minScore + maxScore) / 2,
 		name: '',
 		imgUrl: ''
-
 	})
 
 	const updateRating = newRating => {
@@ -25,8 +24,6 @@ export default function Clothingcard(props) {
 	}
 	if (!data.imgUrl) style.backgroundImage = 'url(no-image-icon-15.png)'
 
-	console.log("style: ", style)
-
 	useEffect(() => {
 		axios.get(`http://localhost:5000/clothes/${props.id}`)
 			.then(response => {
@@ -35,16 +32,14 @@ export default function Clothingcard(props) {
 			})
 	}, [props])
 
-	console.log(data)
-
 	return (
 		<div className={`clothing-card ${props.className}`} style={style}>
 			<span className='name-tag'>{data.name}</span>
-			<div className='rating'>
+			<div className='rating noselect'>
 				<span>Rating:</span>
-				<div onClick={() => updateRating(Math.min(maxScore, data.rating + 1))}>+</div>
+				<div className='button' onClick={() => updateRating(Math.min(maxScore, data.rating + 1))}>+</div>
 				<div>{data.rating}</div>
-				<div onClick={() => updateRating(Math.max(minScore, data.rating - 1))}>-</div>
+				<div className='button' onClick={() => updateRating(Math.max(minScore, data.rating - 1))}>-</div>
 			</div>
 		</div>
 	)

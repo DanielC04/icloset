@@ -28,8 +28,7 @@ def add_clothing_item():
     response = Response("Clothing Item added", 201, mimetype='application/json')
     return response
 
-
-# # route to update clothing_item with PUT method
+# route to update clothing_item with PUT method
 @app.route('/clothes/<int:id>', methods=['PUT'])
 def update_clothing_item(id):
     request_data = request.get_json()

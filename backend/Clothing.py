@@ -10,7 +10,7 @@ class Clothing(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # primary key; ID erstellen
     category = db.Column(db.String(80), nullable=False)
     name = db.Column(db.String(80), nullable=False)
-    color = db.Column(db.Integer, nullable=False)
+    color = db.Column(db.String(80), nullable=False)
     length = db.Column(db.Integer, nullable=True)
     rating = db.Column(db.Integer, nullable=False)
     imgUrl = db.Column(db.String(80), nullable=True)

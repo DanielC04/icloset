@@ -25,11 +25,14 @@ export default function Clothingcollection(props) {
 		}
 	}
 
-	// Daten mit einer Axios-GET Anfrage von Server holen
-	useEffect(() => {
+	const refresh = () => {
+		console.log("refreshing")
 		axios.get(`http://localhost:5000/category/${props.category}`)
 			.then(response => setClothingItemIds(response.data['Clothes']))
-	}, [props])
+	}
+
+	// Daten mit einer Axios-GET Anfrage von Server holen
+	useEffect(refresh, [props])
 
 	return (
 		<div className='clothing-collection' >
@@ -45,7 +48,7 @@ export default function Clothingcollection(props) {
 				{
 					clothingItemIds.map(id => <Clothingcard id={id} key={id} />)
 				}
-				<CreateClothing category={props.category} />
+				<CreateClothing category={props.category} refresh={refresh} />
 			</div>
 		</div>
 	)

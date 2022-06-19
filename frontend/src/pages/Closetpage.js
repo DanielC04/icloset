@@ -1,10 +1,9 @@
 import React from 'react'
 import './Closetpage.scss'
 import Page from './Page'
-import Clothingcard from '../clothes/Clothingcard'
 import Clothingcollection from '../clothes/Clothingcollection'
 
-const clothing_categories = { 'tshirt': 'T-shirts', 'trousers': 'Hosen', 'jacket': 'Jacken' }
+const clothing_categories = { 'tshirt': 'T-shirts', 'trouser': 'Hosen', 'jacket': 'Jacken', 'pullover': 'Pullover' }
 
 export default function Closetpage() {
 

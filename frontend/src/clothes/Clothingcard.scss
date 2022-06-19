@@ -29,7 +29,9 @@
 		div{
 			padding: 0px 10px;
 		}
-		cursor: pointer;
+		.button{
+			cursor: pointer;
+		}
 	}
 	// background-image: url('../../public/tshirt.png');
 	background-size: contain;;
@@ -39,22 +41,4 @@
 .clothing-card.greyed-out{
 	filter: brightness(.6);
 	background-color: grey;
-}
-
-.clothing-card.create-clothing{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	svg{
-		cursor: pointer;
-		margin-bottom: 15px;
-	}
-	background-image: none;
-	h3{
-		font-size: 1.5em;
-		justify-self: baseline;
-		margin: 0;
-		text-align: center;
-	}
 }
