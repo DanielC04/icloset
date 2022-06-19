@@ -1,31 +1,50 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import './Clothingcard.scss'
 
 
-const minScore = 0
+const minScore = 1
 const maxScore = 10
 
 export default function Clothingcard(props) {
+	const [data, setData] = useState({
+		rating: (minScore + maxScore) / 2,
+		name: '',
+		imgUrl: ''
 
-	const [score, setScore] = useState((minScore + maxScore) / 2);
+	})
 
-	let filename = props.filename
-	if (!filename)
-		filename = 'tshirt.png'
-
-	const style = {
-		backgroundImage: `url(${filename})`
+	const updateRating = newRating => {
+		const copy = { ...data }
+		copy.rating = newRating
+		setData(copy)
 	}
 
-	console.log(style)
+	const style = {
+		backgroundImage: `url(${data.imgUrl}`
+	}
+	if (!data.imgUrl) style.backgroundImage = 'url(no-image-icon-15.png)'
+
+	console.log("style: ", style)
+
+	useEffect(() => {
+		axios.get(`http://localhost:5000/clothes/${props.id}`)
+			.then(response => {
+				const data = response.data[0]
+				setData(data)
+			})
+	}, [props])
+
+	console.log(data)
 
 	return (
 		<div className={`clothing-card ${props.className}`} style={style}>
-			<span className='name-tag'>{props.name}</span>
+			<span className='name-tag'>{data.name}</span>
 			<div className='rating'>
-				<div onClick={() => setScore(Math.min(maxScore, score + 1))}>+</div>
-				<div>{score}</div>
-				<div onClick={() => setScore(Math.max(minScore, score - 1))}>-</div>
+				<span>Rating:</span>
+				<div onClick={() => updateRating(Math.min(maxScore, data.rating + 1))}>+</div>
+				<div>{data.rating}</div>
+				<div onClick={() => updateRating(Math.max(minScore, data.rating - 1))}>-</div>
 			</div>
 		</div>
 	)

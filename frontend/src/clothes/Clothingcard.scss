@@ -5,6 +5,9 @@
 	margin-bottom: 10px;
 	aspect-ratio: 1/1;
 	position: relative;
+	span{
+		margin-left: 6px;
+	}
 	.name-tag{
 		position: absolute;
 		left: 5px;
@@ -41,11 +44,17 @@
 .clothing-card.create-clothing{
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	svg{
 		cursor: pointer;
-		margin-top: 20%;
+		margin-bottom: 15px;
 	}
 	background-image: none;
+	h3{
+		font-size: 1.5em;
+		justify-self: baseline;
+		margin: 0;
+		text-align: center;
+	}
 }

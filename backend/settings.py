@@ -1,7 +1,4 @@
-# importing libraries
-from flask import Flask, request, Response, jsonify
-from flask_sqlalchemy import SQLAlchemy
-
+from flask import Flask
 
 # creating an instance of the flask app
 app = Flask(__name__)
