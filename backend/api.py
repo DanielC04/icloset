@@ -1,3 +1,4 @@
+from crypt import methods
 from Clothing import Clothing
 from settings import app
 from flask import jsonify, request, Response
@@ -59,6 +60,22 @@ def get_best_outfit():
         res.append(allClothes.pop(randIndex).id)
 
     return jsonify(res)
+
+# route to change compability of two clothing items
+@app.route('/compatibility', methods=['PUT'])
+def update_compatibility():
+    request_data = request.get_json()
+    id_1 = request_data['id_1']
+    id_2 = request_data['id_2']
+    areCompatible = request_data['are_compatible']
+
+    Clothing.update_compatibility(id_1, id_2, areCompatible)
+    # beide Richtungen müssen geupdatet werden
+    Clothing.update_compatibility(id_2, id_1, areCompatible)
+
+    response = Response("Update compatibility successfully")
+    return response
+
 
 
 whitelist = ['http://localhost:3000']

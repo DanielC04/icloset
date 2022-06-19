@@ -34,10 +34,13 @@ export default function Clothingcollection(props) {
 	// Daten mit einer Axios-GET Anfrage von Server holen
 	useEffect(refresh, [props])
 
+	const isCardOfOtherCategorySelected = props.selectedCard !== null && props.selectedCard['category'] !== props.category
+	const isCardOfCurrentCategorySelected = props.selectedCard !== null && props.selectedCard['category'] === props.category
+
 	return (
 		<div className='clothing-collection' >
 			<div className='heading' onClick={() => setIsExpanded(!isExpanded)} style={headStyle}>
-				<span className={`expand-button ${isExpanded ? 'flipped': ''}`}>
+				<span className={`expand-button ${isExpanded ? 'flipped' : ''}`}>
 					<FontAwesomeIcon icon={faChevronUp} size='xs' />
 				</span>
 				<span className='name'>
@@ -46,7 +49,18 @@ export default function Clothingcollection(props) {
 			</div>
 			<div className='clothing-container' style={containerStyle}>
 				{
-					clothingItemIds.map(id => <Clothingcard id={id} key={id} refresh={refresh} />)
+					isCardOfOtherCategorySelected &&
+					<Clothingcard className='highlighted' id={props.selectedCard['id']} key={props.selectedCard['id']} refresh={refresh} minimal={true}/>
+				}
+				{
+					clothingItemIds.map(id => {
+						let classString = ''
+						if (isCardOfCurrentCategorySelected && props.selectedCard['id'] !== id)
+							classString += 'greyed-out '
+						if (isCardOfCurrentCategorySelected && props.selectedCard['id'] === id)
+							classString += 'highlighted'
+						return <Clothingcard className={classString} id={id} key={id} refresh={refresh} selectedCard={props.selectedCard} onClick={props.setSelectedCard} />
+					})
 				}
 				<CreateClothing category={props.category} refresh={refresh} />
 			</div>

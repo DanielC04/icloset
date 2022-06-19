@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 # Datenbank initialisieren
 db = SQLAlchemy(app)
 
-
 class Clothing(db.Model):
     __tablename__ = 'clothing'
     id = db.Column(db.Integer, primary_key=True)  # primary key; ID erstellen
@@ -14,11 +13,14 @@ class Clothing(db.Model):
     length = db.Column(db.Integer, nullable=True)
     rating = db.Column(db.Integer, nullable=False)
     imgUrl = db.Column(db.String(80), nullable=True)
+    compatibleWith = db.Column(db.String(80), nullable=True)
+    notCompatibleWith = db.Column(db.String(80), nullable=True)
 
     def json(self):
         return {'id': self.id, 'category': self.category, 'name': self.name,
                 'color': self.color, 'length': self.length, 'rating': self.rating,
-                'imgUrl': self.imgUrl}
+                'imgUrl': self.imgUrl, 'compatibleWith': [int(i) for i in self.compatibleWith.split()],
+                'notCompatibleWith': [int(i) for i in self.notCompatibleWith.split()]}
 
     def add_clothing(_category, _name, _color, _length, _rating, _imgUrl):
         new_clothing = Clothing(category=_category, name=_name, color=_color, length=_length, rating=_rating, imgUrl=_imgUrl)
@@ -40,7 +42,7 @@ class Clothing(db.Model):
             if clothing.category == category:
                 res.append(clothing.id)
         return res
-
+    
     def update_clothing(_id, _category, _name, _color, _length, _rating, _imgUrl):
         clothing_item_to_update = Clothing.query.filter_by(id=_id).first()
         clothing_item_to_update.category = _category
@@ -50,6 +52,27 @@ class Clothing(db.Model):
         clothing_item_to_update.rating = _rating
         clothing_item_to_update.imgUrl = _imgUrl
         db.session.commit()
+    
+    def update_compatibility(id_1, id_2, areCompatible):
+        clothing_item = Clothing.query.filter_by(id=id_1).first()
+        compatible = set(clothing_item.compatibleWith.split(' '))
+        notCompatible = set(clothing_item.notCompatibleWith.split(' '))
+        if areCompatible:
+            compatible.add(str(id_2))
+            notCompatible.discard(str(id_2))
+        elif areCompatible == None:
+            compatible.discard(str(id_1))
+            compatible.discard(str(id_2))
+            notCompatible.discard(str(id_1))
+            notCompatible.discard(str(id_2))
+        else:
+            compatible.discard(str(id_2))
+            notCompatible.add(str(id_2))
+        
+        clothing_item.compatibleWith = ' '.join([str(i) for i in compatible])
+        clothing_item.notCompatibleWith = ' '.join([str(i) for i in notCompatible])
+        db.session.commit()
+
 
     def delete_clothing(_id):
         Clothing.query.filter_by(id=_id).delete()

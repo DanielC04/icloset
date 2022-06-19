@@ -5,6 +5,10 @@
 	margin-bottom: 10px;
 	aspect-ratio: 1/1;
 	position: relative;
+	background-size: contain;;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
 	span{
 		margin-left: 6px;
 	}
@@ -42,11 +46,41 @@
 		color: red;
 		cursor: pointer;
 	}
-	background-size: contain;;
-	background-repeat: no-repeat;
-	background-position: center;
+	.combination-rating{
+		display: flex;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background-color: white;
+		div{
+			font-size: 20px;
+			padding: 10px 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: 1px solid black;
+			width: 20px;
+		}
+		.selected{
+			background-color: green;
+		}
+	}
+	.click-box{
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
 }
+
+.clothing-card.highlighted{
+	border: 8px solid blue;
+	cursor: default;
+}
+
 .clothing-card.greyed-out{
 	filter: brightness(.6);
-	background-color: grey;
+	background-color: rgb(255, 255, 255);
 }

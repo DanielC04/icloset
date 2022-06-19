@@ -14,7 +14,6 @@ export default function Clothingcard(props) {
 		name: '',
 		imgUrl: ''
 	})
-
 	const updateRating = newRating => {
 		const copy = { ...data }
 		copy.rating = newRating
@@ -42,13 +41,35 @@ export default function Clothingcard(props) {
 			.then(() => props.refresh())
 	}
 
+	const onClick = () => {
+		props.onClick(data)
+	}
+
+	const changeCompatibility = newCompatibility => {
+		axios.put('http://localhost:5000/compatibility', {
+			'id_1': props.selectedCard.id,
+			'id_2': props.id,
+			'are_compatible': newCompatibility
+		}).then(() => props.refresh())
+	}
+
+	let compatibilityScore = 1
+	if (props.selectedCard != null) {
+		console.log("the selected card-id: ", props.selectedCard.id)
+		console.log("id: ", props.id)
+		console.log(data)
+		if (data.compatibleWith.includes(props.selectedCard.id)) compatibilityScore = 2;
+		if (data.notCompatibleWith.includes(props.selectedCard.id)) compatibilityScore = 0;
+	}
+
 	return (
-		<div className={`clothing-card ${props.className}`} style={style}>
+		<div className={`clothing-card ${props.className}`} style={style} >
+			<div className='click-box' onClick={onClick}></div>
 			<span className='name-tag'>{data.name}</span>
 			{
 				!props.minimal &&
 				<>
-					<div className='rating noselect'>
+					<div className='rating noselect' onClick={e => e.preventDefault()}>
 						<span>Rating:</span>
 						<div className='button' onClick={() => updateRating(Math.min(maxScore, data.rating + 1))}>+</div>
 						<div>{data.rating}</div>
@@ -58,6 +79,14 @@ export default function Clothingcard(props) {
 						<FontAwesomeIcon icon={faTrash} />
 					</div>
 				</>
+			}
+			{
+				props.selectedCard && props.selectedCard['category'] !== data.category &&
+				<div className='combination-rating'>
+					<div className={compatibilityScore === 2 ? 'selected' : ''} onClick={() => changeCompatibility(true)}>+</div>
+					<div className={compatibilityScore === 1 ? 'selected' : ''} onClick={() => changeCompatibility(null)}>O</div>
+					<div className={compatibilityScore === 0 ? 'selected' : ''} onClick={() => changeCompatibility(false)} >-</div>
+				</div>
 			}
 		</div>
 	)
