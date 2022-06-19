@@ -8,7 +8,6 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 const clothing_categories = { 'tshirt': 'T-shirts', 'trousers': 'Hosen', 'jacket': 'Jacken', 'pullover': 'Pullover' }
 
 export default function Closetpage() {
-
 	const [selectedCard, setSelectedCard] = useState(null)
 
 	return (
@@ -16,7 +15,7 @@ export default function Closetpage() {
 			{
 				Object.keys(clothing_categories)
 					.map(category =>
-						<Clothingcollection name={clothing_categories[category]} category={category} key={category} selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+						<Clothingcollection name={clothing_categories[category]} category={category} key={category} selectedCard={selectedCard} setSelectedCard={setSelectedCard}/>
 					)
 			}
 			{

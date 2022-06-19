@@ -25,14 +25,27 @@ export default function Clothingcollection(props) {
 		}
 	}
 
+	// lädt die Daten zur aktuellen Clothing-card aus der Datenbank
 	const refresh = () => {
 		console.log("refreshing")
 		axios.get(`http://localhost:5000/category/${props.category}`)
 			.then(response => setClothingItemIds(response.data['Clothes']))
 	}
 
+	// wenn props.openFlag wahr ist, sollte die Box geöffnet werden
+	useEffect(() => {
+		// if (props.selectedCard === null) return
+		if (props.selectedCard?.category === props.category) setIsExpanded(false)
+		else setIsExpanded(true)
+	}, [props.selectedCard, props.category])
+
 	// Daten mit einer Axios-GET Anfrage von Server holen
 	useEffect(refresh, [props])
+
+	// Clothing-Card wird angeklickt
+	const onClothingCardClicked = cardData => {
+		props.setSelectedCard(cardData)
+	}
 
 	const isCardOfOtherCategorySelected = props.selectedCard !== null && props.selectedCard['category'] !== props.category
 	const isCardOfCurrentCategorySelected = props.selectedCard !== null && props.selectedCard['category'] === props.category
@@ -59,7 +72,7 @@ export default function Clothingcollection(props) {
 							classString += 'greyed-out '
 						if (isCardOfCurrentCategorySelected && props.selectedCard['id'] === id)
 							classString += 'highlighted'
-						return <Clothingcard className={classString} id={id} key={id} refresh={refresh} selectedCard={props.selectedCard} onClick={props.setSelectedCard} />
+						return <Clothingcard className={classString} id={id} key={id} refresh={refresh} selectedCard={props.selectedCard} onClick={onClothingCardClicked} />
 					})
 				}
 				<CreateClothing category={props.category} refresh={refresh} />
