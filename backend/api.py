@@ -1,12 +1,12 @@
-from crypt import methods
 from Clothing import Clothing
 from settings import app
 from flask import jsonify, request, Response
+from random import randint
 
 # route to get all clothes
 @app.route('/clothes', methods=['GET'])
 def get_clothes():
-    return jsonify({'Clothes': Clothing.get_all_clothingItems()})
+    return jsonify({'Clothes': Clothing.get_all_clothing_items()})
 
 # route to get all clothingItem's Ids
 @app.route('/clothes_ids')
@@ -48,6 +48,17 @@ def remove_clothing_item(id):
 @app.route('/category/<string:category>', methods=['GET'])
 def get_clothing_item_ids_of_category(category):
     return jsonify({'Clothes': Clothing.get_clothing_of_category(category)})
+
+# route to get the best outfit
+@app.route('/outfit', methods=['GET'])
+def get_best_outfit():
+    res = []
+    allClothes = Clothing.query.all()
+    for _ in range(4):
+        randIndex = randint(0, len(allClothes) - 1)
+        res.append(allClothes.pop(randIndex).id)
+
+    return jsonify(res)
 
 
 whitelist = ['http://localhost:3000']

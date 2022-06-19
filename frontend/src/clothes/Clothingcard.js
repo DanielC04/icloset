@@ -45,15 +45,20 @@ export default function Clothingcard(props) {
 	return (
 		<div className={`clothing-card ${props.className}`} style={style}>
 			<span className='name-tag'>{data.name}</span>
-			<div className='rating noselect'>
-				<span>Rating:</span>
-				<div className='button' onClick={() => updateRating(Math.min(maxScore, data.rating + 1))}>+</div>
-				<div>{data.rating}</div>
-				<div className='button' onClick={() => updateRating(Math.max(minScore, data.rating - 1))}>-</div>
-			</div>
-			<div className='delete-button' onClick={deleteCard}>
-				<FontAwesomeIcon icon={faTrash} />
-			</div>
+			{
+				!props.minimal &&
+				<>
+					<div className='rating noselect'>
+						<span>Rating:</span>
+						<div className='button' onClick={() => updateRating(Math.min(maxScore, data.rating + 1))}>+</div>
+						<div>{data.rating}</div>
+						<div className='button' onClick={() => updateRating(Math.max(minScore, data.rating - 1))}>-</div>
+					</div>
+					<div className='delete-button' onClick={deleteCard}>
+						<FontAwesomeIcon icon={faTrash} />
+					</div>
+				</>
+			}
 		</div>
 	)
 }

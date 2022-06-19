@@ -25,7 +25,7 @@ class Clothing(db.Model):
         db.session.add(new_clothing)
         db.session.commit()  # Änderungen in die Datenbank commiten
 
-    def get_all_clothingItems():
+    def get_all_clothing_items():
         return [Clothing.json(clothing) for clothing in Clothing.query.all()]
 
     def get_all_clothing_ids():
