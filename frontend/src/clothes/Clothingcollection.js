@@ -46,7 +46,7 @@ export default function Clothingcollection(props) {
 			</div>
 			<div className='clothing-container' style={containerStyle}>
 				{
-					clothingItemIds.map(id => <Clothingcard id={id} key={id} />)
+					clothingItemIds.map(id => <Clothingcard id={id} key={id} refresh={refresh} />)
 				}
 				<CreateClothing category={props.category} refresh={refresh} />
 			</div>

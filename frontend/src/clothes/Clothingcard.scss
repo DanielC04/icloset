@@ -13,17 +13,20 @@
 		left: 5px;
 		top: 2px;
 		background-color: white;
-
+		font-size: 120%;
+		max-width: 50%;
 	}
-	.rating{
+	.rating, .delete-button{
 		position: absolute;
 		bottom: 0;
-		right: 0;
 		transform: translateY(80%);
 		background-color: white;
 		z-index: 2;
 		border: 2px solid black;
 		border-radius: 5px;
+	}
+	.rating{
+		left: 0;
 		display: flex;
 		flex-direction: row;
 		div{
@@ -33,7 +36,12 @@
 			cursor: pointer;
 		}
 	}
-	// background-image: url('../../public/tshirt.png');
+	.delete-button{
+		right: 0;
+		padding: 0px 4px;
+		color: red;
+		cursor: pointer;
+	}
 	background-size: contain;;
 	background-repeat: no-repeat;
 	background-position: center;

@@ -1,6 +1,8 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import './Clothingcard.scss'
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 const minScore = 1
@@ -17,6 +19,9 @@ export default function Clothingcard(props) {
 		const copy = { ...data }
 		copy.rating = newRating
 		setData(copy)
+		axios.put(`http://localhost:5000/clothes/${props.id}`, {
+			...copy
+		})
 	}
 
 	const style = {
@@ -32,6 +37,11 @@ export default function Clothingcard(props) {
 			})
 	}, [props])
 
+	const deleteCard = () => {
+		axios.delete(`http://localhost:5000/clothes/${props.id}`)
+			.then(() => props.refresh())
+	}
+
 	return (
 		<div className={`clothing-card ${props.className}`} style={style}>
 			<span className='name-tag'>{data.name}</span>
@@ -40,6 +50,9 @@ export default function Clothingcard(props) {
 				<div className='button' onClick={() => updateRating(Math.min(maxScore, data.rating + 1))}>+</div>
 				<div>{data.rating}</div>
 				<div className='button' onClick={() => updateRating(Math.max(minScore, data.rating - 1))}>-</div>
+			</div>
+			<div className='delete-button' onClick={deleteCard}>
+				<FontAwesomeIcon icon={faTrash} />
 			</div>
 		</div>
 	)
