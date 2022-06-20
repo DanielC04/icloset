@@ -10,20 +10,30 @@ class Clothing(db.Model):
     category = db.Column(db.String(80), nullable=False)
     name = db.Column(db.String(80), nullable=False)
     color = db.Column(db.String(80), nullable=False)
-    length = db.Column(db.Integer, nullable=True)
+    isTrouserLong = db.Column(db.Boolean(), nullable=True)
     rating = db.Column(db.Integer, nullable=False)
     imgUrl = db.Column(db.String(80), nullable=True)
     compatibleWith = db.Column(db.String(80), nullable=True)
     notCompatibleWith = db.Column(db.String(80), nullable=True)
 
     def json(self):
-        return {'id': self.id, 'category': self.category, 'name': self.name,
-                'color': self.color, 'length': self.length, 'rating': self.rating,
-                'imgUrl': self.imgUrl, 'compatibleWith': [int(i) for i in self.compatibleWith.split()],
-                'notCompatibleWith': [int(i) for i in self.notCompatibleWith.split()]}
+        if not self.compatibleWith:
+            compatibleWith = []
+        else:
+            compatibleWith = [int(i) for i in self.compatibleWith.split()]
 
-    def add_clothing(_category, _name, _color, _length, _rating, _imgUrl):
-        new_clothing = Clothing(category=_category, name=_name, color=_color, length=_length, rating=_rating, imgUrl=_imgUrl)
+        if not self.notCompatibleWith:
+            notCompatibleWith = []
+        else:
+            notCompatibleWith = [int(i) for i in self.notCompatibleWith.split()]
+
+        return {'id': self.id, 'category': self.category, 'name': self.name,
+                'color': self.color, 'rating': self.rating,
+                'imgUrl': self.imgUrl, 'compatibleWith': compatibleWith,
+                'notCompatibleWith': notCompatibleWith}
+
+    def add_clothing(_category, _name, _color, _rating, _imgUrl, _isTrouserLong):
+        new_clothing = Clothing(category=_category, name=_name, color=_color, rating=_rating, imgUrl=_imgUrl, isTrouserLong=_isTrouserLong, compatibleWith='', notCompatibleWith='')
         db.session.add(new_clothing)
         db.session.commit()  # Änderungen in die Datenbank commiten
 
@@ -43,12 +53,11 @@ class Clothing(db.Model):
                 res.append(clothing.id)
         return res
     
-    def update_clothing(_id, _category, _name, _color, _length, _rating, _imgUrl):
+    def update_clothing(_id, _category, _name, _color, _rating, _imgUrl):
         clothing_item_to_update = Clothing.query.filter_by(id=_id).first()
         clothing_item_to_update.category = _category
         clothing_item_to_update.name = _name
         clothing_item_to_update.color = _color
-        clothing_item_to_update.length = _length
         clothing_item_to_update.rating = _rating
         clothing_item_to_update.imgUrl = _imgUrl
         db.session.commit()

@@ -15,8 +15,6 @@ const headingsOfPaths = {
 export default function Header() {
   const location = useLocation()
 
-  console.log(location.pathname)
-
   return (
     <header>
       {

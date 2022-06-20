@@ -3,6 +3,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+	cursor: default;
 	svg{
 		cursor: pointer;
 		margin-bottom: 15px;
@@ -25,6 +26,17 @@
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
-
+	}
+	input.checkbox{
+		opacity: 1;
+		position: inherit;
+		pointer-events: all;
+	}
+	.length-input div{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
 	}
 }

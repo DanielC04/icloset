@@ -16,7 +16,7 @@ export default function Outfitpage() {
     <Page className='outfit-page'>
       <div className='outfit-container'>
         {
-          outfitIds.map(id => <Clothingcard className='outfit' id={id} key={id} minimal={true} />)
+          outfitIds.map(id => <Clothingcard className='outfit' id={id} key={id} minimal={true} onClick={() => { }} />)
         }
       </div>
     </Page>

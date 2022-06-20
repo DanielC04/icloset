@@ -27,7 +27,6 @@ export default function Clothingcollection(props) {
 
 	// lädt die Daten zur aktuellen Clothing-card aus der Datenbank
 	const refresh = () => {
-		console.log("refreshing")
 		axios.get(`http://localhost:5000/category/${props.category}`)
 			.then(response => setClothingItemIds(response.data['Clothes']))
 	}

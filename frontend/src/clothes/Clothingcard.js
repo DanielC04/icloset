@@ -10,7 +10,7 @@ const maxScore = 10
 
 export default function Clothingcard(props) {
 	const [data, setData] = useState({
-		rating: (minScore + maxScore) / 2,
+		rating: Math.floor((minScore + maxScore) / 2),
 		name: '',
 		imgUrl: ''
 	})
@@ -55,9 +55,6 @@ export default function Clothingcard(props) {
 
 	let compatibilityScore = 1
 	if (props.selectedCard != null) {
-		console.log("the selected card-id: ", props.selectedCard.id)
-		console.log("id: ", props.id)
-		console.log(data)
 		if (data.compatibleWith.includes(props.selectedCard.id)) compatibilityScore = 2;
 		if (data.notCompatibleWith.includes(props.selectedCard.id)) compatibilityScore = 0;
 	}

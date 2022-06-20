@@ -4,14 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-const sendRequest = (refresh, category, name, color, length, rating, url) => {
+const sendRequest = (refresh, category, name, color, length, rating, url, isTrouserLong) => {
 	axios.post('http://localhost:5000/clothes', {
 		'category': category,
 		'name': name,
 		'color': color,
 		'length': length,
 		'rating': rating,
-		'imgUrl': url
+		'imgUrl': url,
+		'isTrouserLong': isTrouserLong
 	}).then(refresh)
 }
 
@@ -22,13 +23,14 @@ export default function CreateClothing(props) {
 	const [url, setUrl] = useState('')
 	const [color, setColor] = useState('')
 	const [length, setLength] = useState(0)
+	const [isTrouserLong, setIsTrouserLong] = useState(false)
 
-	const submit = (name, url, color, length) => {
+	const submit = (name, url, color, length, isTrouserLong) => {
 		if (name === '' && url === '') {
 			alert('Es muss mindestens der Name oder ein Bild des Kleidungsstücks angegeben werden!')
 			return;
 		}
-		sendRequest(props.refresh, props.category, name, color, length, defaultRating, url)
+		sendRequest(props.refresh, props.category, name, color, length, defaultRating, url, isTrouserLong)
 		setName('')
 		setUrl('')
 		setColor('')
@@ -46,12 +48,22 @@ export default function CreateClothing(props) {
 			</div>
 			{
 				props.category === 'trousers' &&
-				<div className='length-input'>
-					<label htmlFor='length-input'>Länge</label>
-					<input type={'number'} id='length-input' value={length} onChange={e => setLength(e.target.value)} />
-				</div>
+				<>
+					<div className='length-input'>
+						<label htmlFor='length-input'>Länge</label>
+						<div>
+							<label htmlFor='short-trousers'>Kurz</label>
+							<input className='checkbox' type={'checkbox'} id='long-trousers' checked={!isTrouserLong} onChange={() => setIsTrouserLong(false)} />
+						</div>
+						<div>
+							<label htmlFor='long-trousers'>Lang</label>
+							<input className='checkbox' type={'checkbox'} id='long-trousers' checked={isTrouserLong} onChange={() => setIsTrouserLong(true)} />
+						</div>
+					</div>
+				</>
 			}
-			<FontAwesomeIcon icon={faPlusCircle} size='3x' onClick={() => submit(name, url, color, length)} />
+
+			<FontAwesomeIcon icon={faPlusCircle} size='3x' onClick={() => submit(name, url, color, length, isTrouserLong)} />
 		</div>
 	)
 }

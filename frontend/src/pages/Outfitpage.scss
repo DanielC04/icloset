@@ -3,7 +3,7 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-auto-rows: auto;
-		height: calc(100vh - var(--header-height) - var(--header-height));
+		min-height: calc(100vh - var(--header-height) - var(--header-height));
 	}
 	.outfit{
 		border: 2px solid black;

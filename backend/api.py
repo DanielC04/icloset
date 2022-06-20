@@ -1,8 +1,8 @@
-from crypt import methods
 from Clothing import Clothing
 from settings import app
 from flask import jsonify, request, Response
 from random import randint
+from bestOutfit import getBestOutfit
 
 # route to get all clothes
 @app.route('/clothes', methods=['GET'])
@@ -25,7 +25,7 @@ def get_clothes_by_id(id):
 def add_clothing_item():
     request_data = request.get_json()  # getting data from client
     print(request_data)
-    Clothing.add_clothing(request_data["category"], request_data["name"], request_data["color"], request_data["length"], request_data["rating"], request_data["imgUrl"])
+    Clothing.add_clothing(request_data["category"], request_data["name"], request_data["color"], request_data["rating"], request_data["imgUrl"], request_data["isTrouserLong"])
     response = Response("Clothing Item added", 201, mimetype='application/json')
     return response
 
@@ -53,13 +53,7 @@ def get_clothing_item_ids_of_category(category):
 # route to get the best outfit
 @app.route('/outfit', methods=['GET'])
 def get_best_outfit():
-    res = []
-    allClothes = Clothing.query.all()
-    for _ in range(4):
-        randIndex = randint(0, len(allClothes) - 1)
-        res.append(allClothes.pop(randIndex).id)
-
-    return jsonify(res)
+    return jsonify(getBestOutfit())
 
 # route to change compability of two clothing items
 @app.route('/compatibility', methods=['PUT'])
